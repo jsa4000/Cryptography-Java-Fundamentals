@@ -1,14 +1,39 @@
-site_name: My MkDocs Material Documentation
-site_url: https://sitename.example
+site_name: Cryptography Fundamentals
+site_description: >-
+  Cryptography Fundamentals with examples in Java
+site_author: Javier Santos
+repo_name: jsa4000/Cryptography-Java-Fundamentals
+repo_url: https://github.com/jsa4000/Cryptography-Java-Fundamentals.git
+site_url: https://jsa4000.github.io/Cryptography-Java-Fundamentals/
+
 theme:
   name: material
   font:
     text: Merriweather Sans
     code: Red Hat Mono
-  #logo: assets/logo.png
-  #favicon: assets/favicon.ico
+  icon:
+    logo: material/book-open-page-variant
   features:
+    - header.autohide
     - navigation.footer
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.instant.preview
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.tracking
+    - navigation.top
+    #- navigation.sections
+    - navigation.instant
+    - navigation.tracking
+    - toc.integrate
+    - search.suggest
+    - search.share
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.annotate
+    - content.code.copy
   palette:
     - scheme: slate
       toggle:
@@ -24,7 +49,12 @@ theme:
       accent: deep orange
 
 markdown_extensions:
+  - abbr
+  - meta
+  - md_in_html
   - attr_list
+  - admonition
+  - footnotes
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -34,6 +64,13 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.snippets:
+      check_paths: true
+      base_path:
+        - .
+        - docs
+        - src
+      url_download: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -41,8 +78,23 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-  - admonition
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.mark
   - pymdownx.details
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - git-revision-date-localized
+  - autolinks
+  - diagrams
+  - glightbox
 
 extra:
   social:

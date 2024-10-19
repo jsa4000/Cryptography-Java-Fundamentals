@@ -26,8 +26,8 @@ python3 -m venv .venv
 # Activate current environment
 source .venv/bin/activate
 
-# Install dependencies
-pip install mkdocs-material
+# Install requirements
+pip install -r requirements.txt
 
 # Finally deactivate environment
 deactivate
