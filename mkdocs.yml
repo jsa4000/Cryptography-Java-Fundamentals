@@ -95,6 +95,7 @@ plugins:
   - autolinks
   - diagrams
   - glightbox
+  - tags
 
 extra:
   social:
