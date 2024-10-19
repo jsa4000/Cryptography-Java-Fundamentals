@@ -5,20 +5,17 @@ theme:
   font:
     text: Merriweather Sans
     code: Red Hat Mono
-  logo: assets/logo.png
-  favicon: assets/favicon.ico
+  #logo: assets/logo.png
+  #favicon: assets/favicon.ico
   features:
     - navigation.footer
   palette:
-    # Dark Mode
     - scheme: slate
       toggle:
         icon: material/weather-sunny
         name: Dark mode
       primary: green
       accent: deep purple
-
-    # Light Mode
     - scheme: default
       toggle:
         icon: material/weather-night
@@ -49,9 +46,8 @@ markdown_extensions:
 
 extra:
   social:
-    - icon: simple/youtube
-      link: https://youtube.com/@james-willett
-    - icon: simple/linkedin
-      link: https://linkedin.com/in/willettjames
+    - icon: simple/github
+      link: https://github.com/jsa4000
 
-copyright: Copyright &copy; 2024 James Willett
+
+copyright: Copyright &copy; 2024 Javier Santos
