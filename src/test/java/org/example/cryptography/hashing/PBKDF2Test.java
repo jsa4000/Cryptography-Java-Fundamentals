@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 
 public class PBKDF2Test {
 
@@ -49,11 +47,11 @@ public class PBKDF2Test {
         System.out.println(hash3);
     }
 
-    private HashUtils.HashData hash(final String password, final byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    private HashUtils.HashData hash(final String password, final byte[] salt) throws GeneralSecurityException {
         final var spec = new PBEKeySpec(password.toCharArray(), salt, ITERATION_COUNT, KEY_LENGTH);
         final var factory = SecretKeyFactory.getInstance(HASH_ALGORITHM);
         byte[] hash = factory.generateSecret(spec).getEncoded();
         return new HashUtils.HashData(password.getBytes(), hash, EncodeUtils.encode(hash));
     }
-    
+
 }

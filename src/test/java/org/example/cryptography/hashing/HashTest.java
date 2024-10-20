@@ -25,22 +25,22 @@ public class HashTest {
 
         System.out.println("One-way only");
         final var plainText = "This is a sample test to be hashing.";
-        final var textHash = generateHashData(plainText.getBytes());
+        final var textHash = hash(plainText.getBytes());
         System.out.println(textHash);
 
         System.out.println("Deterministic");
         final var deterministicText = "This is a sample test to be hashing.";
-        final var deterministicHash = generateHashData(deterministicText.getBytes());
+        final var deterministicHash = hash(deterministicText.getBytes());
         System.out.println(deterministicHash);
 
         System.out.println("Pseudo Random");
         final var pseudoRandomText = "This is a sample test to be hashing;"; // End is different
-        final var pseudoRandomHash = generateHashData(pseudoRandomText.getBytes());
+        final var pseudoRandomHash = hash(pseudoRandomText.getBytes());
         System.out.println(pseudoRandomHash);
 
         System.out.println("Fixed Length");
         final var fixedLengthTextTest = "This is a sample test to be hashing with more characters";
-        final var fixedLengthTextHash = generateHashData(fixedLengthTextTest.getBytes());
+        final var fixedLengthTextHash = hash(fixedLengthTextTest.getBytes());
         System.out.println(fixedLengthTextHash);
 
         assertEquals(textHash.base64(), deterministicHash.base64());
@@ -55,48 +55,40 @@ public class HashTest {
         final var plainText = "This is a sample test to be hashing.";
 
         System.out.println("Generate Hash without Salt");
-        final var textHashNoSalt1 = generateHashData(plainText.getBytes());
+        final var textHashNoSalt1 = hash(plainText.getBytes());
         System.out.println(textHashNoSalt1);
 
         System.out.println("Generate different Hash without Salt (must be equal)");
-        final var textHashNoSalt2 = generateHashData(plainText.getBytes());
+        final var textHashNoSalt2 = hash(plainText.getBytes());
         System.out.println(textHashNoSalt2);
 
         System.out.println("Generate Hash with Salt");
         final var salt1 = CryptoUtils.getRandomNonce();
-        final var textHash1 = generateHashDataWithSalt(plainText.getBytes(), salt1);
+        final var textHash1 = hashWithSalt(plainText.getBytes(), salt1);
         System.out.println(textHash1);
 
         System.out.println("Generate Hash with different Salt (must be different)");
         final var salt2 = CryptoUtils.getRandomNonce();
-        final var textHash2 = generateHashDataWithSalt(plainText.getBytes(), salt2);
+        final var textHash2 = hashWithSalt(plainText.getBytes(), salt2);
         System.out.println(textHash2);
 
         assertEquals(textHashNoSalt1.base64(), textHashNoSalt2.base64());
         assertNotEquals(textHash1.base64(), textHash2.base64());
     }
 
-    private HashUtils.HashData generateHashData(final byte[] data) throws NoSuchAlgorithmException {
-        final var hash = hash(data);
-        return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
-    }
-
-    private HashUtils.HashData generateHashDataWithSalt(final byte[] data, final byte[] salt) throws NoSuchAlgorithmException {
-        final var hash = hashWithSalt(data, salt);
-        return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
-    }
-
-    private byte[] hash(final byte[] data) throws NoSuchAlgorithmException {
+    private HashUtils.HashData hash(final byte[] data) throws NoSuchAlgorithmException {
         // Create Hash function to generate the digest using the specified algorithm.
         final var messageDigest = MessageDigest.getInstance(DEFAULT_HASH_ALGORITHM);
-        return messageDigest.digest(data);
+        final var hash = messageDigest.digest(data);
+        return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
     }
 
-    private byte[] hashWithSalt(final byte[] data, final byte[] salt) throws NoSuchAlgorithmException {
+    private HashUtils.HashData hashWithSalt(final byte[] data, final byte[] salt) throws NoSuchAlgorithmException {
         // Create Hash function to generate the digest using the specified algorithm.
         final var messageDigest = MessageDigest.getInstance(DEFAULT_HASH_ALGORITHM);
         messageDigest.update(salt);
-        return messageDigest.digest(data);
+        final var hash = messageDigest.digest(data);
+        return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
     }
 
 }

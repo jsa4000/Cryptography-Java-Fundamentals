@@ -6,34 +6,43 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.crypto.spec.PSource;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
+import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import static org.example.cryptography.Utils.CryptoUtils.RSA;
 import static org.example.cryptography.Utils.EncodeUtils.CHUNK_SIZE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RSAEncryptTest {
+public class RSAOAPEncryptTest {
 
     /**
-     * The Java algorithm string "RSA/ECB/PKCS1Padding", as you already found out, does not implement ECB;
-     * it only encrypts/decrypts a single block. The Bouncy Castle cryptographic security provider has a better
-     * named algorithm string, "RSA/None/PKCS1Padding", which better indicates that no mode of operation is used.
-     * It is likely that "/ECB" was just included to mimic the cipher string for block ciphers. So you would have
-     * to call the cipher "RSA/ECB/PKCS1Padding" multiple times to implement ECB.
-     * "PKCS1Padding" indicates RSA with PKCS#1 v1.5 padding for encryption. This padding is indeterministic -
-     * i.e. it uses a random number generator. This explains why each ciphertext block will be different.
+     *
      */
-    public static final String ENCRYPT_ALGORITHM = "RSA/ECB/PKCS1Padding";
+    public static final String ENCRYPT_ALGORITHM = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
+
+    /**
+     * Default Provider (It's not needed unless you change the default)
+     */
+    private static final String SUN_JCE = "SunJCE";
+
+    /**
+     * A mask generation function (MGF) is a cryptographic primitive similar to a cryptographic hash function
+     * except that while a hash function's output has a fixed size, a MGF supports output of a variable length.
+     * In this respect, a MGF can be viewed as a extendable-output function (XOF): it can accept input of any
+     * length and process it to produce output of any length. Mask generation functions are completely deterministic:
+     * for any given input and any desired output length the output is always the same.
+     */
+    private static final String MGF_1 = "MGF1";
+
+    private static final String SHA_256 = "SHA-256";
 
     @Test
-    @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/PKCS1Padding Algorithm")
+    @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/OAEPWithSHA-256AndMGF1Padding Algorithm")
     public void encryptDecryptWithAES() throws GeneralSecurityException {
 
         // Generate the Symmetric key
@@ -56,29 +65,16 @@ public class RSAEncryptTest {
         assertEquals(plainText, decryptedText);
     }
 
-    @Test
-    @DisplayName("Encrypt Decrypt with Symmetric key and RSA Algorithm with data length greater than 245 bytes")
-    public void encryptDecryptWithAESWithLargeData() throws Exception {
-        // Generate the Symmetric key
-        final var keyPair = CryptoUtils.generateAsymmetricKeyPair();
-
-        // The data to be encrypted and decrypted (greater than 245 bytes).
-        final var data = Files.readString(Paths.get(getClass().getClassLoader().getResource("files/large.txt").toURI()));
-        System.out.printf("Plain Text: %s\n", data);
-
-        // Check that it throws IllegalBlockSizeException: Data must not be longer than 245 bytes
-        assertThrows(IllegalBlockSizeException.class, () -> encrypt(data.getBytes(), keyPair.getPublic().getEncoded()));
-
-        System.out.println("IllegalBlockSizeException: Data must not be longer than 245 bytes");
-    }
-
     private static byte[] encrypt(final byte[] data, final byte[] publicKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
         final var publicKeySpec = new X509EncodedKeySpec(publicKey);
         final var publicKeyCipher = keyFactory.generatePublic(publicKeySpec);
 
-        final var cipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, publicKeyCipher);
+        // Specify the provider to use, since it's not necessary using default provider
+        final var cipher = Cipher.getInstance(ENCRYPT_ALGORITHM, SUN_JCE);
+        // It's needed to specify OAEPParameterSpec, since by default it uses SHA-1 instead SHA-256 even it's specified
+        final var spec = new OAEPParameterSpec(SHA_256, MGF_1, MGF1ParameterSpec.SHA256, PSource.PSpecified.DEFAULT);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKeyCipher, spec);
 
         return cipher.doFinal(data);
     }
@@ -88,8 +84,10 @@ public class RSAEncryptTest {
         final var privateKeySpec = new PKCS8EncodedKeySpec(privateKey);
         final var privateKeyCipher = keyFactory.generatePrivate(privateKeySpec);
 
-        final var cipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, privateKeyCipher);
+        // It's needed to specify OAEPParameterSpec, since by default it uses SHA-1 instead SHA-256 even it's specified
+        final var cipher = Cipher.getInstance(ENCRYPT_ALGORITHM, SUN_JCE);
+        final var spec = new OAEPParameterSpec(SHA_256, MGF_1, MGF1ParameterSpec.SHA256, PSource.PSpecified.DEFAULT);
+        cipher.init(Cipher.DECRYPT_MODE, privateKeyCipher, spec);
 
         return cipher.doFinal(data);
     }

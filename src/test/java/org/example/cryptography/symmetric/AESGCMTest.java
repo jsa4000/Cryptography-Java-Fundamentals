@@ -46,6 +46,7 @@ public class AESGCMTest {
         final var iv = CryptoUtils.getRandomNonce();
 
         // The data to be encrypted and decrypted
+        // With GCM Input length not need to be multiple of 16 bytes
         final var plainText = "This is an example that uses AES/GCM to encrypt information.";
         System.out.printf("Plain Text: %s\n", plainText);
 

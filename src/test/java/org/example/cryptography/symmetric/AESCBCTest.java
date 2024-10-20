@@ -6,12 +6,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.GeneralSecurityException;
 
 import static org.example.cryptography.Utils.EncodeUtils.CHUNK_SIZE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AESCBCTest {
 
@@ -49,6 +51,27 @@ public class AESCBCTest {
         System.out.printf("Decrypted '%s' must be equal to '%s'", decryptedText, plainText);
 
         assertEquals(plainText, decryptedText);
+    }
+
+    @Test
+    @DisplayName("Encrypt Decrypt with Symmetric key and AES/CCB/NoPadding Algorithm with input multiple of 16 bytes")
+    public void encryptDecryptWithAESWithInputNotValidInLength() throws GeneralSecurityException {
+
+        // Generate the Symmetric key
+        final var symmetricKey = CryptoUtils.generateSymmetricKey();
+
+        // Generate initialization vector (iv). It must be 16 bytes long
+        final var iv = CryptoUtils.getRandomNonce();
+
+        // The data to be encrypted and decrypted.
+        // ECB Input length must be multiple of 16 bytes since it's not padding. i.e. 16 * 3 = 48bytes
+        final var plainText = "This is an example that uses AES/ECB to encrypt not multiple of 16 bytes.";
+        System.out.printf("Plain Text: %s\n", plainText);
+
+        // Encrypt the data using AES, symmetric key and initialization vector.
+        assertThrows(IllegalBlockSizeException.class, () -> encrypt(plainText.getBytes(), symmetricKey, iv));
+
+        System.out.println("IllegalBlockSizeException: Input length not multiple of 16 bytes");
     }
 
     @Test
