@@ -3,7 +3,7 @@ title: Asymmetric
 tags:
   - asymmetric
 ---
-## Asymmetric Encryption
+# Asymmetric Encryption
 
 Before introducing the **asymmetric key encryption** schemes and algorithms, we should first understand the concept of **public key cryptography** (asymmetric cryptography).
 
@@ -11,7 +11,7 @@ The [**public key cryptography**](https://en.wikipedia.org/wiki/Public-key\_cryp
 
 Popular **public-key cryptosystems** (asymmetric crypto algorithms) like **RSA** (Rivest–Shamir–Adleman), **ECC** (elliptic curve cryptography), **Diffie-Hellman**, **ECDH**, **ECDSA** and **EdDSA**, are widely used in the modern cryptography and we shall demonstrate most of them in practice with code examples.
 
-### Public Key Encryption / Decryption
+## Public Key Encryption / Decryption
 
 **Asymmetric encryption schemes** use a pair of cryptographically related **public** and **private keys** to **encrypt** the data (by the public key) and **decrypt** the encrypted data back to its original forms (by the private key). Data **encrypted by a public key** is **decrypted** by the corresponding **private key**:
 
@@ -30,7 +30,7 @@ The above process is known as [**key encapsulation mechanism (KEM)**](https://en
 
 Public key encryption can work also in the opposite scenario: **encrypt data by a private key and decrypt it by the public key**. Thus someone can prove that he is owner of certain private key, while revealing only its corresponding public key. This approach is used by some digital signature schemes.
 
-### Signatures: Asymmetric Signing / Verification
+## Signatures: Asymmetric Signing / Verification
 
 In the context of [**digital signatures**](https://en.wikipedia.org/wiki/Digital\_signature), a message **signed by a private key** (digital signature) is later **verified** by the corresponding **public key**.
 
@@ -40,7 +40,7 @@ In the context of [**digital signatures**](https://en.wikipedia.org/wiki/Digital
 
 Digital signatures are widely used in the **finance industry** for authorizing payments. In **operating systems** OS components and device drivers are usually digitally signed to avoid injecting insecure code, trojans or viruses in the OS. In **blockchain systems**, transactions are typically signed by the owner of certain blockchain address (which corresponds to certain public key and has corresponding private key). So **a signed blockchain transaction holds a proof of authorship**: it is guaranteed mathematically that the signature is created by the holder of certain blockchain address and the transaction was not modified after the signing. This works perfectly for the scenario of **digital payments** and digital signing of documents and contracts.
 
-### Key Pairs
+## Key Pairs
 
 The **public key cryptography** uses a **pair of keys**: **public key** + **private key**. These keys are mathematically connected and are used together as **pair**.
 
@@ -55,7 +55,7 @@ privKey: 648fc1fa828c7f185d825c04a5b21af9e473b867eeee1acea4dbab938433e158
 pubKey: 02c324648931b89e3e8a0fc42c96e8e3be2e42812986573a40d46563bceaf75110
 ```
 
-### Private Keys
+## Private Keys
 
 Message **encryption** and **signing** is done by a **private key**. The private keys are always kept **secret** by their owner, just like passwords. In the server infrastructure, private key usually stay in an encrypted and protected **keystore**. In the blockchain systems the private keys usually stay in specific software or hardware apps or devices called "**crypto wallets**", which store securely a set of private keys.
 
@@ -65,7 +65,7 @@ Message **encryption** and **signing** is done by a **private key**. The private
 648fc1fa828c7f185d825c04a5b21af9e473b867eeee1acea4dbab938433e158
 ```
 
-### Public Keys
+## Public Keys
 
 Message **decryption** and **signature verification** is done by the **public key**. Public keys are by design public information (not a secret). It is mathematically infeasible to calculate the private key from its corresponding public key.
 

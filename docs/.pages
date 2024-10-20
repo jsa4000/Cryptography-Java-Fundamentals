@@ -1,6 +1,6 @@
 nav:
   - index.md
-  - hash
+  - hashing
   - symmetric
   - asymmetric
   - examples

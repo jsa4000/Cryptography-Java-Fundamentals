@@ -63,7 +63,6 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.snippets:
       check_paths: true
       base_path:
@@ -86,6 +85,10 @@ markdown_extensions:
       generic: true
   - pymdownx.mark
   - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.tilde
 
 plugins:
   - search

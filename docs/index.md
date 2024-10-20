@@ -9,7 +9,7 @@ tags:
 
 **Cryptography** is the process of hiding or coding information so that only the person a message was intended for can read it. The art of cryptography has been used to code messages for thousands of years and continues to be used in bank cards, computer passwords, and ecommerce.
 
-![Legacy Cryptography](assets/cryptography-legacy.png)
+![cryptography-legacy](assets/cryptography-legacy.png)
 
 ## What is Cryptography?
 
@@ -23,7 +23,7 @@ tags:
 * **Integrity** is protecting the data from unauthorized changes.
 * **Authenticity** is proving who you are.
 
-![Cryptography Goals](assets/cryptography-goals.png)
+![cryptography-goals](assets/cryptography-goals.png)
 
 ## Modern Cryptography
 
@@ -42,7 +42,7 @@ The contemporary ways that uses **cryptography** are:
 * **Asymmetric-key encryption**: Asymmetric key encryption is one of the most common cryptographic methods that involve using a single key and its pendent, where one key is used to encrypt data and the second one is used to decrypt an encrypted text. The second key is kept highly secret, while the first one which is called a public key can be freely distributed among the service’s users. Asymmetric keys most common encryption schemes are the **RSA** cipher and **elliptic curves-based cryptography** (**ECC**), with the *secp256k1* curve and the *Ed25519* cryptosystem.
 * **Digital signatures** and **ECDSA**, as well as the concept of **entropy** and secure **random number** generation and **quantum-safe cryptography**.
 
-![Modern Cryptography](assets/cryptography-contemporary.png)
+![cryptography-contemporary](assets/cryptography-contemporary.png)
 
 ### Encryption and Keys
 

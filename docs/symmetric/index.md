@@ -3,7 +3,7 @@ title: Symmetric
 tags:
   - symmetric
 ---
-## Symmetric Encryption
+# Symmetric Encryption
 
 **Symmetric encryption** schemes use **the same symmetric key** (or password) to **encrypt** data and **decrypt** the encrypted data back to its original form:
 
@@ -11,7 +11,7 @@ tags:
 
 Symmetric encryption usually combines several crypto algorithms into an **symmetric encryption scheme**, e.g. AES-256-CTR-HMAC-SHA256. The **encryption scheme** (cipher construction) may include: password to **key derivation** algorithm (with certain parameters) + **symmetric cipher** algorithm (with certain parameters) + **cipher block mode** algorithm + **message authentication** (MAC) algorithm. This means that **the above shown diagram is simplified** and does not fully represent the process.
 
-### Secret Keys
+## Secret Keys
 
 The **secret key** used to **cipher** (encrypt) and **decipher** (decrypt) data is typically of size 128, 192 or 256 bits and is sometimes referred as "_**encryption key**_" or "_**shared key**_", because both sending and receiving parties should know it.
 
@@ -43,13 +43,13 @@ In **decimal** system, the above key is the following integer number:
 319849484316084980661994213716306415989897600164422912728298459349458028548368
 ```
 
-### Modern Symmetric Encryption Algorithms
+## Modern Symmetric Encryption Algorithms
 
 Widely used in modern cryptography **symmetric encryption algorithms** (ciphers) are: [**AES**](https://en.wikipedia.org/wiki/Advanced\_Encryption\_Standard) (AES-128, AES-192, AES-256), [**ChaCha20**](https://legacy.gitbook.com/book/svetlin-nakov/practical-blockchain-for-developers-the-big-book/edit), [**Twofish**](https://en.wikipedia.org/wiki/Twofish), [**IDEA**](https://en.wikipedia.org/wiki/International\_Data\_Encryption\_Algorithm), [**Serpent**](https://en.wikipedia.org/wiki/Serpent\_\(cipher\)), [**Camelia**](https://en.wikipedia.org/wiki/Camellia\_\(cipher\)) and others. Most of them are **block ciphers** (encrypt data by blocks of fixed size, e.g. 128 bits), while others are **stream ciphers** (encrypt data byte by byte as a stream). Block ciphers can be turned into stream ciphers by using a technique called "**cipher block mode**".
 
 We shall give more details and code examples using the **AES** and **ChaCha20** algorithms a bit later.
 
-### Symmetric Encryption - Online Demo
+## Symmetric Encryption - Online Demo
 
 In order to better understand the idea behind the symmetric encryption, you can play with some **online symmetric encryption tool** to encrypt and decrypt a sample message by sample secret key (or password). You can play a bit with this site: [**https://aesencryption.net**](https://aesencryption.net).
 
