@@ -44,3 +44,24 @@ mkdocs serve
 
 http://127.0.0.1:8000/
 ```
+
+## FAQ
+
+### Github 400 Error on push
+
+Github returns 400 error when pushing to remote repository.
+
+```bash
+error: RPC falló; HTTP 400 curl 22 The requested URL returned error: 400
+send-pack: unexpected disconnect while reading sideband packet
+```
+
+Execute following command.
+
+```bash
+# Execute following command
+git config http.postBuffer 524288000
+
+# Execute push again
+git push
+```
