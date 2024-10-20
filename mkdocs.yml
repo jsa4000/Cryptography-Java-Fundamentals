@@ -20,7 +20,7 @@ theme:
     - navigation.instant.progress
     - navigation.instant.preview
     - navigation.tabs
-    - navigation.tabs.sticky
+    #- navigation.tabs.sticky
     - navigation.tracking
     - navigation.top
     #- navigation.sections
@@ -96,11 +96,11 @@ plugins:
   - diagrams
   - glightbox
   - tags
+  - awesome-pages
 
 extra:
   social:
     - icon: simple/github
       link: https://github.com/jsa4000
-
 
 copyright: Copyright &copy; 2024 Javier Santos
