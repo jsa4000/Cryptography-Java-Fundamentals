@@ -112,7 +112,9 @@ The most well-known application of a **hybrid approach** is **Transport Layer Se
 
 ### Diffie-Hellman
 
-**Diffie-Hellman (DH)** key exchange is a way of **sharing a secret number** over a **public network**. Allows two parties to establish a shared secret over an unsecured medium. **Secret is never transmitted over the network, only values to derive secret**.
+**Diffie–Hellman (DH)** key exchange is a mathematical method of securely generating a **symmetric cryptographic key** over a public channel and was one of the first **public-key** protocols implemented within the field of cryptography. Published in 1976 by Diffie and Hellman, this is the earliest publicly known work that proposed the **idea** of a **private key** and a corresponding **public key**.
+
+**Diffie-Hellman** key exchange is a way of **sharing a secret number** over a **public network**. Allows two parties to establish a shared secret over an unsecured medium. **Secret is never transmitted over the network, only values to derive secret**.
 
 ![symmetric-encryption](../assets/symmetric-encryption-algorithms-keyexchange-diffie-hellman.png)
 
@@ -121,4 +123,3 @@ Generally, Diffie-Hellman us used for encryption, **password-authenticated key a
 Diffie-Hellman key exchange is commonly found in security protocols, such as Transport Layer Security (TLS), Secure Shell (SSH) and IP Security (IPsec). For example, in IPsec, the encryption method is used for key generation and key rotation.
 
 ![symmetric-encryption](../assets/symmetric-encryption-algorithms-keyexchange-diffie-hellman-flow.png)
-
