@@ -51,6 +51,10 @@ Remember, no matter which algorithm or cipher type you use, the security of symm
 
 The **AES** Encryption algorithm (also known as the *Rijndael algorithm*) is a symmetric block cipher algorithm with a **block/chunk** size of 128 bits. It converts these individual blocks using keys of 128, 192, and 256 bits. Once it encrypts these blocks, it joins them together to form the ciphertext.
 
+!!! note
+
+    The** 256-bit** implementation is the **most secure** length to be used with **AES encryption**.
+
 It is based on a **substitution-permutation network**, also known as an **SP network**. It consists of a series of linked operations, including replacing inputs with specific outputs (substitutions) and others involving bit shuffling (permutations).
 
 The **Advanced Encryption Standard (AES)** encryption process consists of the following steps:

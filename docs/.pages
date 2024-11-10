@@ -4,6 +4,7 @@ nav:
   - symmetric
   - asymmetric
   - examples
+  - tools
 
 order_by: title
 order: asc

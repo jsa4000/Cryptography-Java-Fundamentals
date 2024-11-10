@@ -64,7 +64,7 @@ Cryptography uses **random numbers** and deals with **entropy** (unpredictable r
 
 ### Key Exchange
 
-Cryptography defines **key-exchange algorithms** (like Diffie-Hellman key exchange and ECDH) and **key establishment schemes**, used to securely establish encryption **keys** between two parties that intend to transmit messages securely using **encryption**. Such algorithms are performed typically when a new secure connection between two parties is established, e.g. when you open a modern Web site or connect to the WiFi network.
+Cryptography defines **key-exchange algorithms** (like **Diffie-Hellman** key exchange and ECDH) and **key establishment schemes**, used to securely establish encryption **keys** between two parties that intend to transmit messages securely using **encryption**. Such algorithms are performed typically when a new secure connection between two parties is established, e.g. when you open a modern Web site or connect to the WiFi network.
 
 ### Cryptographic Hashes and Password Hashing
 
@@ -79,3 +79,13 @@ In cryptography the hashing, encryption algorithms and random generators follow 
 ### Cryptographic Libraries
 
 Developers should know the modern **cryptographic libraries** for their programming language and platform and how to use them. Developing with cryptography requires **understanding of the crypto-concepts**. Copy / pasting code from Internet or following an example from a blog may lead to insecure design and weak security. Cryptographic libraries are very useful, but you should **understand the concepts** first, then choose appropriate combination of algorithms and adjust carefully their parameters.
+
+## Quantum-Resistant Cryptography
+
+Fortunately, researchers have been working to develop public-key algorithms that could **resist** code-breaking efforts from **quantum computers**, preserving or restoring trust in **certificate authorities**, **digital signatures**, and **encrypted messages**.
+
+Notably, the *U.S. National Institute of Standards and Technology* is already evaluating 69 potential **new** methods for what it calls “*post–quantum cryptography.*” The organization expects to have a draft standard by 2024, if not before, which would then be added to web browsers and other internet applications and systems.
+
+In principle, symmetric cryptography can be used for key exchange. But this approach depends on the security of trusted third parties to protect secret keys, and it cannot implement digital signatures, so it would be difficult to apply across the internet. Still, it is used throughout the Global System for Mobile Communication (GSM) cellular standard for encryption and authentication.
+
+Another alternative to public-key cryptography for key exchange is **quantum key-distribution**. Here, quantum methods are used by the sender and receiver to establish a symmetric key. But these methods require special hardware.
