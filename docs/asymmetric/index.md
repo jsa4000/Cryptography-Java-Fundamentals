@@ -119,16 +119,93 @@ In order to decide wether using one type of another, here is a table with its ma
 
 ## Digital Signatures
 
-In the context of [**digital signatures**](https://en.wikipedia.org/wiki/Digital\_signature), a message **signed by a private key** (digital signature) is later **verified** by the corresponding **public key**. Digital signatures provide message **authentication**, message **integrity** and **confidentiality**.
+A **digital signature** is an **unique** and **non-transferable** electronic **seal** that links an **individual or entity** to a **digital document or message**. It works similarly to a **traditional handwritten signature**, but using **advanced cryptographic techniques** to ensure the **authenticity**, **integrity** and **confidentiality** of the information.
+
+* **Authentication**, by serving as a **credential** to **validate** the identity of the **entity that it is issued to**.
+* **Encryption**, for **secure communication** over **insecure networks** such as the internet.
+* **Integrity** of **documents signed with the certificate** so that they **cannot be altered** by a third party in **transit**.
 
 ![asymmetric-encryption](../assets/asymmetric-digital-signatures.png)
 
-[**Digital signatures**](digital-signatures/) in short: a message can be **signed** by certain **private key** and the obtained **signature** can be later **verified** by the corresponding **public key**. A **signed message** cannot be altered after signing. A message signature proves that certain message (e.g. blockchain transaction) is created by the owner of certain public key.
+**Digital signatures** in short: a message can be **signed** by certain **private key** and the obtained **signature** can be later **verified** by the corresponding **public key**. A **signed message** cannot be altered after signing. A message signature proves that certain message (e.g. blockchain transaction) is created by the owner of certain public key.
 
 ![asymmetric-encryption](../assets/asymmetric-digital-signatures-flow.png)
 
-Digital signatures are widely used in the **finance industry** for authorizing payments. In **operating systems** OS components and device drivers are usually digitally signed to avoid injecting insecure code, trojans or viruses in the OS. In **blockchain systems**, transactions are typically signed by the owner of certain blockchain address (which corresponds to certain public key and has corresponding private key). So **a signed blockchain transaction holds a proof of authorship**: it is guaranteed mathematically that the signature is created by the holder of certain blockchain address and the transaction was not modified after the signing. This works perfectly for the scenario of **digital payments** and digital signing of documents and contracts.
+**Digital signatures** are widely used in the **finance industry** for authorizing payments. In **operating systems** OS components and device drivers are usually digitally signed to avoid injecting insecure code, trojans or viruses in the OS. In **blockchain systems**, transactions are typically signed by the owner of certain blockchain address (which corresponds to certain public key and has corresponding private key). So **a signed blockchain transaction holds a proof of authorship**: it is guaranteed mathematically that the signature is created by the holder of certain blockchain address and the transaction was not modified after the signing. This works perfectly for the scenario of **digital payments** and digital signing of documents and contracts.
 
 ![asymmetric-encryption](../assets/asymmetric-digital-signatures-usecase.png)
 
 ## Certificates
+
+**Certificates** are often used as **containers** for **asymmetric keys** because they can contain more information such as **expiry dates** and **issuers**. There is no difference between the two mechanisms for the cryptographic algorithm, and no difference in strength given the same key length. Generally, you use a **certificate** to **encrypt** other types of encryption keys in a database, or to sign code modules.
+
+A **certificate** basically is a **digitally signed security object** that contains a **public key** (and optionally a private key) and **additional content**.
+
+### Types and Formats
+
+There are a few different **types** of **certificate formats** that can be used for **digital certificates**. The most common format is the `X.509` format, which is a **standardized format** that is often used for *Internet security*. Other formats include `PGP`, `OpenPGP`, and` S/MIME`. Each of these formats has its own **advantages** and **disadvantages**, so it’s important to **choose the right one** for your needs.
+
+* **X.509 certificates**: X.509 certificates are the **most common type** of digital certificate. They are often used for **website security** and for **email encryption**. X.509 certificates can be issued by either a trusted third party or by a company or organization.
+* **PGP and OpenPGP Certificates**: PGP and OpenPGP are two other types of digital certificates. **PGP** is a proprietary format that is owned by Symantec. **OpenPGP** is an open standard that is managed by the IETF. S/MIME is another type of digital certificate that is often used for email encryption.
+
+There are several **encoding formats** and **extensions** in `X.509` certificate alone. You may have seen certificates in `.pem`, `.crt`, `.p7b`, `.der`, `.pfx`, and so many. If we ask if all the extensions are the same, the answer is both yes and no. All these certificates are the same but with **different encoding standards**. All that depends on the type of encoding your application, or operating system accepts.
+
+![asymmetric-encryption](../assets/asymmetric-certificates-types.png)
+
+### Certificate Authority
+
+A **certificate authority (CA)** is a **trusted** entity that **issues** a **SSL/TLS** certificates. These digital certificates are data files used to cryptographically link an **entity** with a **public key**. Web browsers use them to authenticate content sent from web servers, ensuring trust in content delivered online.
+
+![asymmetric-encryption](../assets/asymmetric-certificates-ca.png)
+
+A **certificate signing request (CSR)** is sent to the **certificate authority** to obtain a **digital certificate**. A **certificate** can contain: Fully Qualified Domain Name (FQDN), Organization Name (ON), Organization Unit (OU), Country (C), City/State, email, etc.
+
+**SSL/TLS** certificates and other types of certificates follow a similar **CSR** process.
+
+1. The **client** generates a **key pair** with the **private and the public key**. The **private key** is stored **securely** by the client. Then it generates a **CSR** (`PKCS#10`) which contains the **subject**, the generated **public key** and **additional attributes**.
+2. **Certificate Authority** receives **CSR** and **verifies the signature** with the **public key**. Then **CA** generates a **Signed Server Certificate** (`X.509`) by signing previous request with its own **private key**.
+3. Finally, CA sends the **certificate** and the **certificate chain** to the client.
+
+![asymmetric-encryption](../assets/asymmetric-certificates-ca-flow.png)
+
+There are two types of **certificate authorities (CAs)**: **root CAs** and **intermediate CAs**. For an SSL certificate to be trusted, that certificate must have been **issued** by a CA that’s included in the trusted store of the device that’s connecting.
+
+If the certificate **wasn’t issued** by a **trusted CA**, the connecting device (eg. a web browser) checks to see if the certificate of the issuing CA was issued by a trusted CA. It **continues** checking until either a trusted CA is found (at which point a trusted, secure connection will be established), or no trusted CA can be found (at which point the device will usually display an error).
+
+The list of SSL certificates, from the root certificate to the end-user certificate, represents the **SSL certificate chain**
+
+![asymmetric-encryption](../assets/asymmetric-certificates-ca-flow2.png)
+
+## SSL/TLS
+
+The **Open Systems Interconnection (OSI)** model is a way to divide up the problem of communicating between two remote computers. The abstract model has seven layers, and each layer has certain functions that should be performed by the service at that layer. Further, each layer needs only know about the layer below it, and needs to only worry about providing reliable information to the layer above it.
+
+The **Transmission Control Protocol/Internet Protocol (TCP/IP)** model came **before** the **OSI model**. The key difference between **TCP/IP** and **OSI model** is that **TCP/IP** is a practical model that addresses **specific communication challenges** and relies on **standardized** protocols. In contrast, **OSI** serves as a **comprehensive**, **protocol-independent framework** designed to encompass **various** network communication methods.
+
+The **SSL/TLS** protocol operates on:
+
+* **Application / Presentation / Session layers** of OSI model
+* **Application layer** of TCP/IP model
+
+![asymmetric-encryption](../assets/asymmetric-certificates-https-layers.png)
+
+**SSL and TLS** protocols allow to exchange **secure** information between to computers. They are **responsible** for the following three things:
+
+* **Confidentiality**: it's impossible to **spy** on **exchanged** information. Client and server must have the insurance that their conversation can't be listened to by someone else. This is ensured by an **encryption** algorithm.
+* **Integrity**: it's impossible to **falsify** exchanged information. A client and a server must ensure that transmitted messages are **neither truncated nor modified (integrity)**, and that they come from an expected sender. These functionalities are done by **signature** of data.
+* **Authentication**: it allows to be sure of the software identity, the person or corporation with which we communicate. Since SSL 3.0, the server can also ask the client to authenticate, ensured by the use of **certificates**.
+
+TLS and SSL protocols are based on a combination on both **asymmetrical** and **symmetrical** encryption.
+
+### HTTPS
+
+**Hypertext transfer protocol secure (HTTPS)** is an **encrypted** version of HTTP. Which is the protocol used to transfer data between web browsers (like Chrome) and servers (computers that host websites). Conceptually, **HTTP/TLS** is very simple. Simply use **HTTP** over **TLS** precisely as you would use **HTTP** over **TCP**.
+
+1. **Browser contacts website**: The user's web browser attempts to connect to a website using **HTTPS**
+2. **SSL certificate sends**: The website's server responds by sending its **SSL/TLS certificate** to the browser. This certificate contains the website’s **public key (encryption key)** and is used to establish a **secure connection**.
+3. **Browser verifies certificate**: The browser **checks the certificate** to ensure it’s **valid** and is **issued** by a **trusted certificate authority** (like GoDaddy, DigiCert, Comodo, etc.). This step is crucial for confirming a website’s **authenticity**.
+4. **Encryption key exchange**: The browser and the server establish an **encrypted connection** by **exchanging keys** once the certificate is verified. The browser uses the server's public key to **encrypt** information, which can only be **decrypted** by the **private key** (i.e., the decryption key) the server holds.
+5. **Encrypted data transfer**: All data transferred between the browser and the server is **encrypted** after the secure connection is established. Which ensures it can’t be read by anyone intercepting the data.
+6. **Data decryption and display**: The server **decrypts** the received data using the **private key**, processes it, and sends back the requested information. This data is also **encrypted**. The browser then **decrypts** the incoming data and displays the website content to the user.
+
+![asymmetric-encryption](../assets/asymmetric-certificates-https-handshake.png)
