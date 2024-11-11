@@ -3,7 +3,7 @@ title: Asymmetric
 tags:
   - asymmetric
 ---
-# Asymmetric Encryption
+# Asymmetric Cryptopgraphy
 
 Before introducing the **asymmetric key encryption** schemes and algorithms, we should first understand the concept of **public key cryptography** (asymmetric cryptography).
 
@@ -27,7 +27,7 @@ The encrypted data, obtained as result of encryption is called *ciphertext*. The
 
 !!! note
 
-    Public key encryption can work also in the opposite scenario: **encrypt data by a private key and decrypt it by the public key**. Thus someone can prove that he is owner of certain private key, while revealing only its corresponding public key. This approach is used by some digital signature schemes.
+    Public key encryption can work also in the opposite scenario: **encrypt data by a private key and decrypt it by the public key**. Thus someone can prove that he is owner of certain private key, while revealing only its corresponding public key. This approach is used by some **digital signature** schemes.
 
 In some public key cryptosystems (like the Elliptic-Curve Cryptography - **ECC**), the public key can be calculated from the private key. In other cryptosystems (like **RSA**), the public key and the private key are generated together but cannot be directly calculated from each other.
 
@@ -125,9 +125,17 @@ A **digital signature** is an **unique** and **non-transferable** electronic **s
 * **Encryption**, for **secure communication** over **insecure networks** such as the internet.
 * **Integrity** of **documents signed with the certificate** so that they **cannot be altered** by a third party in **transit**.
 
+!!! warning
+
+    The **legitimacy** of** digital signatures** are dependent on the **certificate** that authenticates the **content** and the **signer**. There are various reputable and legitimate digital **certifying authorities (CA)** that allow companies to obtain digital certificates.
+
 ![asymmetric-encryption](../assets/asymmetric-digital-signatures.png)
 
 **Digital signatures** in short: a message can be **signed** by certain **private key** and the obtained **signature** can be later **verified** by the corresponding **public key**. A **signed message** cannot be altered after signing. A message signature proves that certain message (e.g. blockchain transaction) is created by the owner of certain public key.
+
+!!! note
+
+    The **digital document** or **message** is not directly **signed**, instead a **hash digest** (i.e `SHA-256`) is calculated and used to generate the **digital signature** (**encrypted**). Both the **original data** and the **digital signature** are sent to the **destination**, so it can check if the data is **valid** by using the **public key** to **decrypt**.
 
 ![asymmetric-encryption](../assets/asymmetric-digital-signatures-flow.png)
 
@@ -163,7 +171,7 @@ A **certificate signing request (CSR)** is sent to the **certificate authority**
 **SSL/TLS** certificates and other types of certificates follow a similar **CSR** process.
 
 1. The **client** generates a **key pair** with the **private and the public key**. The **private key** is stored **securely** by the client. Then it generates a **CSR** (`PKCS#10`) which contains the **subject**, the generated **public key** and **additional attributes**.
-2. **Certificate Authority** receives **CSR** and **verifies the signature** with the **public key**. Then **CA** generates a **Signed Server Certificate** (`X.509`) by signing previous request with its own **private key**.
+2. **Certificate Authority** receives **CSR** and **verifies the signature** with the **public key** (**Automatic Certificate Management Environment (ACME)**). Then **CA** generates a **Signed Server Certificate** (`X.509`) by signing previous request with its own **private key**.
 3. Finally, CA sends the **certificate** and the **certificate chain** to the client.
 
 ![asymmetric-encryption](../assets/asymmetric-certificates-ca-flow.png)

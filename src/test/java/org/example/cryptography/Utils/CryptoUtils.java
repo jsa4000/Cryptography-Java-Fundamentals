@@ -24,6 +24,8 @@ public class CryptoUtils {
      */
     public static final int INITIALIZATION_VECTOR_SIZE = 16;
 
+    // --8<-- [start:generate-asymmetric-key-values]
+
     /**
      * In RSA cryptography, both the public and the private keys can encrypt a message. The opposite key
      * from the one used to encrypt a message is used to decrypt it. This attribute is one reason why RSA
@@ -39,6 +41,7 @@ public class CryptoUtils {
      */
     public static final int RSA_KEY_SIZE = 2048;
 
+    // --8<-- [end:generate-asymmetric-key-values]
 
     /**
      * @return
@@ -52,6 +55,8 @@ public class CryptoUtils {
         return keyGenerator.generateKey();
     }
 
+    // --8<-- [end:generate-symmetric-key]
+
     /**
      * @param symmetricKey
      * @return
@@ -59,6 +64,8 @@ public class CryptoUtils {
     public static SecretKey generateSymmetricKey(final byte[] symmetricKey) {
         return new SecretKeySpec(symmetricKey, AES);
     }
+
+    // --8<-- [start:generate-asymmetric-key]
 
     /**
      * @return
@@ -69,6 +76,8 @@ public class CryptoUtils {
         keyPairGenerator.initialize(RSA_KEY_SIZE);
         return keyPairGenerator.generateKeyPair();
     }
+
+    // --8<-- [end:generate-asymmetric-key]
 
     /**
      * A cryptographic nonce is a randomly generated number designed to keep communications private and

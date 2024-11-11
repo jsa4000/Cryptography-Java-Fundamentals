@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RSAEncryptTest {
 
+    // --8<-- [start:rsa-encrypt-values]
+
     /**
      * The Java algorithm string "RSA/ECB/PKCS1Padding", as you already found out, does not implement ECB;
      * it only encrypts/decrypts a single block. The Bouncy Castle cryptographic security provider has a better
@@ -31,6 +33,8 @@ public class RSAEncryptTest {
      * i.e. it uses a random number generator. This explains why each ciphertext block will be different.
      */
     public static final String ENCRYPT_ALGORITHM = "RSA/ECB/PKCS1Padding";
+
+    // --8<-- [end:rsa-encrypt-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/PKCS1Padding Algorithm")
@@ -72,6 +76,8 @@ public class RSAEncryptTest {
         System.out.println("IllegalBlockSizeException: Data must not be longer than 245 bytes");
     }
 
+    // --8<-- [start:rsa-encrypt]
+
     private static byte[] encrypt(final byte[] data, final byte[] publicKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
         final var publicKeySpec = new X509EncodedKeySpec(publicKey);
@@ -83,6 +89,10 @@ public class RSAEncryptTest {
         return cipher.doFinal(data);
     }
 
+    // --8<-- [end:rsa-encrypt]
+
+    // --8<-- [start:rsa-decrypt]
+
     private static byte[] decrypt(final byte[] data, final byte[] privateKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
         final var privateKeySpec = new PKCS8EncodedKeySpec(privateKey);
@@ -93,4 +103,6 @@ public class RSAEncryptTest {
 
         return cipher.doFinal(data);
     }
+
+    // --8<-- [end:rsa-decrypt]
 }

@@ -3,7 +3,7 @@ title: Symmetric
 tags:
   - symmetric
 ---
-# Symmetric Encryption
+# Symmetric Cryptopgraphy
 
 **Symmetric encryption** (or *private key* encryption) is the process of using a single key to both **encrypt** and **decrypt** data. It’s called *private key* because the use of a single encryption key necessitates that the key **is always kept private**.
 

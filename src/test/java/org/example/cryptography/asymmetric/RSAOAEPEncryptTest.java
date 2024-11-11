@@ -18,10 +18,17 @@ import static org.example.cryptography.Utils.CryptoUtils.RSA;
 import static org.example.cryptography.Utils.EncodeUtils.CHUNK_SIZE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RSAOAPEncryptTest {
+public class RSAOAEPEncryptTest {
+
+    // --8<-- [start:rsa-encrypt-values]
 
     /**
-     *
+     * Optimal Asymmetric Encryption Padding (OAEP) allows for a message to be encrypted using RSA. It thus uses RSA
+     * encryption and integrates a padding scheme.
+     * OAP adds an element of randomness which can be used to convert a deterministic encryption scheme (e.g., traditional RSA)
+     * into a probabilistic scheme.
+     * OAP prevents partial decryption of ciphertexts (or other information leakage) by ensuring that an adversary cannot recover
+     * any portion of the plaintext without being able to invert the trapdoor one-way permutation.
      */
     public static final String ENCRYPT_ALGORITHM = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
 
@@ -40,6 +47,8 @@ public class RSAOAPEncryptTest {
     private static final String MGF_1 = "MGF1";
 
     private static final String SHA_256 = "SHA-256";
+
+    // --8<-- [end:rsa-encrypt-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/OAEPWithSHA-256AndMGF1Padding Algorithm")
@@ -65,6 +74,8 @@ public class RSAOAPEncryptTest {
         assertEquals(plainText, decryptedText);
     }
 
+    // --8<-- [start:rsa-encrypt]
+
     private static byte[] encrypt(final byte[] data, final byte[] publicKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
         final var publicKeySpec = new X509EncodedKeySpec(publicKey);
@@ -79,6 +90,10 @@ public class RSAOAPEncryptTest {
         return cipher.doFinal(data);
     }
 
+    // --8<-- [end:rsa-encrypt]
+
+    // --8<-- [start:rsa-decrypt]
+
     private static byte[] decrypt(final byte[] data, final byte[] privateKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
         final var privateKeySpec = new PKCS8EncodedKeySpec(privateKey);
@@ -91,4 +106,6 @@ public class RSAOAPEncryptTest {
 
         return cipher.doFinal(data);
     }
+
+    // --8<-- [end:rsa-decrypt]
 }
