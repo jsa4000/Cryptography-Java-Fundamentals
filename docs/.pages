@@ -3,7 +3,7 @@ nav:
   - hashing
   - symmetric
   - asymmetric
-  - examples
+  - source
   - tools
 
 order_by: title

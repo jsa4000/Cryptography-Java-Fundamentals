@@ -12,6 +12,8 @@ import java.security.GeneralSecurityException;
 
 public class PBKDF2Test {
 
+    // --8<-- [start:crypto-values]
+
     /**
      * SHA-256 is not enough for password hashing even using salt that is the fundamental for password hashing.
      * PBKDF2 applies a pseudorandom function, such as hash-based message authentication code (HMAC), to the
@@ -25,6 +27,8 @@ public class PBKDF2Test {
     public static final int ITERATION_COUNT = 65536;
 
     public static final int KEY_LENGTH = 128;
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Generated hash using PBKDF2 for Password hashing")
@@ -47,11 +51,15 @@ public class PBKDF2Test {
         System.out.println(hash3);
     }
 
+    // --8<-- [start:hash]
+
     private HashUtils.HashData hash(final String password, final byte[] salt) throws GeneralSecurityException {
         final var spec = new PBEKeySpec(password.toCharArray(), salt, ITERATION_COUNT, KEY_LENGTH);
         final var factory = SecretKeyFactory.getInstance(HASH_ALGORITHM);
         byte[] hash = factory.generateSecret(spec).getEncoded();
         return new HashUtils.HashData(password.getBytes(), hash, EncodeUtils.encode(hash));
     }
+
+    // --8<-- [end:hash]
 
 }

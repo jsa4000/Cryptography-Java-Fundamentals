@@ -14,10 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class HashTest {
 
+    // --8<-- [start:crypto-values]
+
     /**
      * Hash algorithm. It's recommended to use SHA-256 over legacy (non-trusted) algorithms such as SHA-1 or MD5
      */
     public static final String DEFAULT_HASH_ALGORITHM = "SHA-256"; // ["SHA-256", "SHA-1", "MD5"]
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Generated Hash must preserve hashing properties")
@@ -76,19 +80,23 @@ public class HashTest {
         assertNotEquals(textHash1.base64(), textHash2.base64());
     }
 
+    // --8<-- [start:hash]
+
     private HashUtils.HashData hash(final byte[] data) throws NoSuchAlgorithmException {
         // Create Hash function to generate the digest using the specified algorithm.
         final var messageDigest = MessageDigest.getInstance(DEFAULT_HASH_ALGORITHM);
-        final var hash = messageDigest.digest(data);
+        final var hash = messageDigest.digest(data); // (1)!
         return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
     }
 
     private HashUtils.HashData hashWithSalt(final byte[] data, final byte[] salt) throws NoSuchAlgorithmException {
         // Create Hash function to generate the digest using the specified algorithm.
         final var messageDigest = MessageDigest.getInstance(DEFAULT_HASH_ALGORITHM);
-        messageDigest.update(salt);
-        final var hash = messageDigest.digest(data);
+        messageDigest.update(salt); // (2)!
+        final var hash = messageDigest.digest(data); // (3)!
         return new HashUtils.HashData(data, hash, EncodeUtils.encode(hash));
     }
+
+    // --8<-- [end:hash]
 
 }

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RSAOAEPEncryptTest {
 
-    // --8<-- [start:rsa-encrypt-values]
+    // --8<-- [start:crypto-values]
 
     /**
      * Optimal Asymmetric Encryption Padding (OAEP) allows for a message to be encrypted using RSA. It thus uses RSA
@@ -48,7 +48,7 @@ public class RSAOAEPEncryptTest {
 
     private static final String SHA_256 = "SHA-256";
 
-    // --8<-- [end:rsa-encrypt-values]
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/OAEPWithSHA-256AndMGF1Padding Algorithm")
@@ -74,7 +74,7 @@ public class RSAOAEPEncryptTest {
         assertEquals(plainText, decryptedText);
     }
 
-    // --8<-- [start:rsa-encrypt]
+    // --8<-- [start:encrypt]
 
     private static byte[] encrypt(final byte[] data, final byte[] publicKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
@@ -90,9 +90,9 @@ public class RSAOAEPEncryptTest {
         return cipher.doFinal(data);
     }
 
-    // --8<-- [end:rsa-encrypt]
+    // --8<-- [end:encrypt]
 
-    // --8<-- [start:rsa-decrypt]
+    // --8<-- [start:decrypt]
 
     private static byte[] decrypt(final byte[] data, final byte[] privateKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
@@ -107,5 +107,5 @@ public class RSAOAEPEncryptTest {
         return cipher.doFinal(data);
     }
 
-    // --8<-- [end:rsa-decrypt]
+    // --8<-- [end:decrypt]
 }

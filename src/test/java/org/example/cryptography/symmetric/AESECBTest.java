@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AESECBTest {
 
+    // --8<-- [start:crypto-values]
+
     /**
      * AES + Electronic Code Book (ECB) + NoPadding
      * ECB is the easiest block cipher way of functioning, since each block of input plaintext is directly encrypted,
@@ -23,6 +25,8 @@ public class AESECBTest {
      * in size, it can be divided into many blocks and the process repeated.
      */
     public static final String ENCRYPT_ALGORITHM = "AES/ECB/NoPadding";
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and AES/ECB/NoPadding Algorithm")
@@ -92,6 +96,8 @@ public class AESECBTest {
         assertEquals(plainText, decryptedText);
     }
 
+    // --8<-- [start:encrypt]
+
     private byte[] encrypt(final byte[] data, final SecretKey secretkey)
         throws GeneralSecurityException {
         final var encryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
@@ -99,11 +105,17 @@ public class AESECBTest {
         return encryptionCipher.doFinal(data);
     }
 
+    // --8<-- [end:encrypt]
+
+    // --8<-- [start:decrypt]
+
     private byte[] decrypt(final byte[] data, final SecretKey secretkey)
         throws GeneralSecurityException {
         final var decryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
         decryptionCipher.init(Cipher.DECRYPT_MODE, secretkey);
         return decryptionCipher.doFinal(data);
     }
+
+    // --8<-- [end:decrypt]
 
 }

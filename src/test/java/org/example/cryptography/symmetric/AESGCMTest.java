@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AESGCMTest {
 
+    // --8<-- [start:crypto-values]
+
     /**
      * AES + Galois Counter Mode (GCM) + NoPadding
      * GCM = CTR + Authentication
@@ -34,6 +36,8 @@ public class AESGCMTest {
      * size of the full 128 bits should be preferred.
      */
     public static final int AUTHENTICATION_TAG_SIZE = 128;
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and AES/GCM/NoPadding Algorithm")
@@ -119,6 +123,8 @@ public class AESGCMTest {
         assertEquals(plainText, decryptedText);
     }
 
+    // --8<-- [start:encrypt]
+
     private byte[] encrypt(final byte[] data, final SecretKey secretkey, final byte[] iv)
         throws GeneralSecurityException {
         final var encryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
@@ -126,11 +132,17 @@ public class AESGCMTest {
         return encryptionCipher.doFinal(data);
     }
 
+    // --8<-- [end:encrypt]
+
+    // --8<-- [start:decrypt]
+
     private byte[] decrypt(final byte[] data, final SecretKey secretkey, final byte[] iv)
         throws GeneralSecurityException {
         final var decryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
         decryptionCipher.init(Cipher.DECRYPT_MODE, secretkey, new GCMParameterSpec(AUTHENTICATION_TAG_SIZE, iv));
         return decryptionCipher.doFinal(data);
     }
+
+    // --8<-- [end:decrypt]
 
 }

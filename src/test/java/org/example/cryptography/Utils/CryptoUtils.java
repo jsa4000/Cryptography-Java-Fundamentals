@@ -7,6 +7,8 @@ import java.security.*;
 
 public class CryptoUtils {
 
+    // --8<-- [start:generate-symmetric-key-values]
+
     /**
      * The Advanced Encryption Standard (AES, Rijndael) is a block cipher encryption and decryption
      * algorithm, the most used encryption algorithm in the worldwide. The AES processes block of 128
@@ -23,6 +25,8 @@ public class CryptoUtils {
      * The IV (initial value or initialization vector), it is random bytes, typically 12 bytes or 16 bytes
      */
     public static final int INITIALIZATION_VECTOR_SIZE = 16;
+
+    // --8<-- [end:generate-symmetric-key-values]
 
     // --8<-- [start:generate-asymmetric-key-values]
 
@@ -42,6 +46,8 @@ public class CryptoUtils {
     public static final int RSA_KEY_SIZE = 2048;
 
     // --8<-- [end:generate-asymmetric-key-values]
+
+    // --8<-- [start:generate-symmetric-key]
 
     /**
      * @return
@@ -79,6 +85,8 @@ public class CryptoUtils {
 
     // --8<-- [end:generate-asymmetric-key]
 
+    // --8<-- [start:generate-symmetric-iv]
+
     /**
      * A cryptographic nonce is a randomly generated number designed to keep communications private and
      * protect against replay attacks.
@@ -90,6 +98,8 @@ public class CryptoUtils {
         new SecureRandom().nextBytes(nonce);
         return nonce;
     }
+
+    // --8<-- [end:generate-symmetric-iv]
 
 }
 

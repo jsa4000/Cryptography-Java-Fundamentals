@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RSAEncryptTest {
 
-    // --8<-- [start:rsa-encrypt-values]
+    // --8<-- [start:crypto-values]
 
     /**
      * The Java algorithm string "RSA/ECB/PKCS1Padding", as you already found out, does not implement ECB;
@@ -34,7 +34,7 @@ public class RSAEncryptTest {
      */
     public static final String ENCRYPT_ALGORITHM = "RSA/ECB/PKCS1Padding";
 
-    // --8<-- [end:rsa-encrypt-values]
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and RSA/None/PKCS1Padding Algorithm")
@@ -76,7 +76,7 @@ public class RSAEncryptTest {
         System.out.println("IllegalBlockSizeException: Data must not be longer than 245 bytes");
     }
 
-    // --8<-- [start:rsa-encrypt]
+    // --8<-- [start:encrypt]
 
     private static byte[] encrypt(final byte[] data, final byte[] publicKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
@@ -89,9 +89,9 @@ public class RSAEncryptTest {
         return cipher.doFinal(data);
     }
 
-    // --8<-- [end:rsa-encrypt]
+    // --8<-- [end:encrypt]
 
-    // --8<-- [start:rsa-decrypt]
+    // --8<-- [start:decrypt]
 
     private static byte[] decrypt(final byte[] data, final byte[] privateKey) throws GeneralSecurityException {
         final var keyFactory = KeyFactory.getInstance(RSA);
@@ -104,5 +104,5 @@ public class RSAEncryptTest {
         return cipher.doFinal(data);
     }
 
-    // --8<-- [end:rsa-decrypt]
+    // --8<-- [end:decrypt]
 }

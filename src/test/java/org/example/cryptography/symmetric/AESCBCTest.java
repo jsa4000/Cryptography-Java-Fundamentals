@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AESCBCTest {
 
+    // --8<-- [start:crypto-values]
+
     /**
      * AES + Cipher Block Chaining (CBC) + NoPadding
      * CBC uses the result from the previous encrypted block (XOR) to encrypt the next block (chain).
@@ -24,6 +26,8 @@ public class AESCBCTest {
      * CBC improves the ECB mode for minimizing patterns in plaintext.
      */
     public static final String ENCRYPT_ALGORITHM = "AES/CBC/NoPadding";
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Encrypt Decrypt with Symmetric key and AES/CBC/NoPadding Algorithm")
@@ -102,6 +106,8 @@ public class AESCBCTest {
         assertEquals(plainText, decryptedText);
     }
 
+    // --8<-- [start:encrypt]
+
     private byte[] encrypt(final byte[] data, final SecretKey secretkey, final byte[] iv)
         throws GeneralSecurityException {
         final var encryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
@@ -110,6 +116,10 @@ public class AESCBCTest {
         return encryptionCipher.doFinal(data);
     }
 
+    // --8<-- [end:encrypt]
+
+    // --8<-- [start:decrypt]
+
     private byte[] decrypt(final byte[] data, final SecretKey secretkey, final byte[] iv)
         throws GeneralSecurityException {
         final var decryptionCipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
@@ -117,5 +127,7 @@ public class AESCBCTest {
         decryptionCipher.init(Cipher.DECRYPT_MODE, secretkey, ivParameterSpec);
         return decryptionCipher.doFinal(data);
     }
+
+    // --8<-- [end:decrypt]
 
 }

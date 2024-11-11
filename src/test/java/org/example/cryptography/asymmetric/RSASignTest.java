@@ -17,7 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RSASignTest {
 
+    // --8<-- [start:crypto-values]
+
     public static final String SIGN_ALGORITHM = "SHA256withRSA";
+
+    // --8<-- [end:crypto-values]
 
     @Test
     @DisplayName("Generate Digital Signature to ensure confidentiality and integrity using RSA.")
@@ -67,6 +71,8 @@ public class RSASignTest {
         assertFalse(valid);
     }
 
+    // --8<-- [start:sign]
+
     private static byte[] sign(final byte[] data, final byte[] privateKey) throws GeneralSecurityException {
         // Get the private key encoded
         final var keyFactory = KeyFactory.getInstance(RSA);
@@ -81,6 +87,10 @@ public class RSASignTest {
         // Sign the data with the private key.
         return signature.sign();
     }
+
+    // --8<-- [end:sign]
+
+    // --8<-- [start:validate]
 
     private static boolean validate(final byte[] data, final byte[] publicKey, final byte[] signature) throws GeneralSecurityException {
         // Get the public key encoded
@@ -97,5 +107,6 @@ public class RSASignTest {
         return verifier.verify(signature);
     }
 
+    // --8<-- [end:validate]
 
 }
