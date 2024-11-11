@@ -72,8 +72,8 @@ public class CryptoUtils {
      * @throws Exception
      */
     public static KeyPair generateAsymmetricKeyPair() throws NoSuchAlgorithmException {
-        final var keyPairGenerator = KeyPairGenerator.getInstance(RSA);
-        keyPairGenerator.initialize(RSA_KEY_SIZE);
+        final var keyPairGenerator = KeyPairGenerator.getInstance(RSA); // (1)!
+        keyPairGenerator.initialize(RSA_KEY_SIZE); // (2)!
         return keyPairGenerator.generateKeyPair();
     }
 

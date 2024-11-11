@@ -15,6 +15,9 @@ tags: [Java, Cryptography]
 --8<-- "src/test/java/org/example/cryptography/Utils/CryptoUtils.java:generate-asymmetric-key"
 ```
 
+1. Get the Key Generator `RSA` in Java crypto service provider (by default is `SunJCE`).
+2. Initialize the Key Generator with the requested key size.
+
 #### Default Mode
 
 ```java title="RSA Mode"
